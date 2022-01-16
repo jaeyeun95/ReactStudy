@@ -14,7 +14,7 @@ configurations {
 	}
 }
 
-repositories {
+repositories {	// mvnrepository 를 의미
 	mavenCentral()
 }
 
@@ -25,6 +25,10 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//	google guava
+	// https://mvnrepository.com/artifact/com.google.guava/guava
+	implementation group: 'com.google.guava', name: 'guava', version: '28.1-jre'
+
 }
 
 test {
