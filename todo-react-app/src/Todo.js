@@ -5,18 +5,18 @@ class Todo extends React.Component {
   constructor(props) {
     super(props);
     console.log("### Todo props :", props);
-    this.state = { item1: props.item1 };
+    this.state = { item: props.item };
   }
   render() {
     return (
       <div className="Todo">
         <input
           type="checkbox"
-          id={this.state.item1.id}
-          name={this.state.item1.id}
-          checked={this.state.item1.done}
+          id={this.state.item.id}
+          name={this.state.item.id}
+          checked={this.state.item.done}
         />
-        <label id={this.state.item1.id}>{this.state.item1.title}</label>
+        <label id={this.state.item.id}>{this.state.item.title}</label>
       </div>
     );
   }
