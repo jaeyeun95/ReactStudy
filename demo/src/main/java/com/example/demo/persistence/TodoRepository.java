@@ -11,7 +11,7 @@ import java.util.List;
 public interface TodoRepository extends JpaRepository<TodoEntity, String> {
 
     // ?1 은 메서드의 매개변수의 순서 위치다.
-    // p131 참고 
+    // p131 참고
 //    @Query("select * from Todo t where t.userId =?1")
     List<TodoEntity> findByUserId(String userId);
 
