@@ -5,6 +5,7 @@ class AddTodo extends React.Component {
   constructor(props) {
     super(props);
     this.state = { item: { title: "" } };
+    // 함수 등록 부분
     this.add = props.add;
   }
 
