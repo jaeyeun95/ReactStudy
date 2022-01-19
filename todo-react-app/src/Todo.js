@@ -33,24 +33,47 @@ class Todo extends React.Component {
     });
   };
 
+  // 엔터키 눌렀을 때 readOnly 종료
+  enterKeyEventHandler = (e) => {
+    if (e.key === "Enter") {
+      this.setState({ readOnly: true });
+    }
+  };
+
+  // item 수정 함수
+  editEventHandler = (e) => {
+    const thisItem = this.state.item;
+    thisItem.title = e.target.value;
+    this.setState({ item: thisItem });
+  };
+
+  // checkbox 업데이트
+  checkboxEventHandler = (e) => {
+    const thisItem = this.state.item;
+    thisItem.done = !thisItem.done;
+    this.setState({ item: thisItem });
+  };
+
   render() {
     const item = this.state.item;
     return (
       <ListItem>
-        <Checkbox checked={item.done} />
+        <Checkbox checked={item.done} onChange={this.checkboxEventHandler} />
         <ListItemText>
           <InputBase
             inputProps={{
               "aria-label": "naked",
               readOnly: this.state.readOnly,
             }}
-            onClick={this.offReadOnlyMode}
             type="text"
             id={item.id}
             name={item.id}
             value={item.title}
             multiline={true}
             fullWidth={true}
+            onClick={this.offReadOnlyMode}
+            onChange={this.editEventHandler}
+            onKeyPress={this.enterKeyEventHandler}
           />
         </ListItemText>
 
