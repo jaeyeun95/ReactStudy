@@ -7,7 +7,17 @@ class Subject extends Component {
     // vue 에서 <template>에서처럼 최상위 태그 하나만 있어야 한다.
     return (
       <header>
-        <h1>{this.props.title}</h1>
+        <h1>
+          <a
+            href="/"
+            onClick={function (e) {
+              e.preventDefault();
+              this.props.onChangePage();
+            }.bind(this)}
+          >
+            {this.props.title}
+          </a>
+        </h1>
         {this.props.sub}
       </header>
     );
