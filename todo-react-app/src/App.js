@@ -16,6 +16,28 @@ class App extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const requestOptions = {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    };
+
+    fetch("http://localhost:9999/todo", requestOptions)
+      .then((res) => res.json())
+      .then(
+        (res) => {
+          this.setState({
+            items: res.data,
+          });
+        },
+        (error) => {
+          this.setState({
+            error,
+          });
+        }
+      );
+  }
+
   // 저장 함수
   add = (item) => {
     const thisItems = this.state.items;
