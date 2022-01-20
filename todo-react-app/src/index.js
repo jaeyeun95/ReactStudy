@@ -1,7 +1,6 @@
 import React from "react"; // 리액트 사용을 위해
 import ReactDOM from "react-dom"; // 리액트 DOM 사용을 위해
 import "./index.css"; // css
-import App from "./App"; // App 컴포넌트 임포트
 import reportWebVitals from "./reportWebVitals";
 import AppRouter from "./AppRouter";
 

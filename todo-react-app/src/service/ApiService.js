@@ -12,13 +12,33 @@ export function call(api, method, request) {
     // GET method
     options.body = JSON.stringify(request);
   }
-  return fetch(options.url, options).then((res) =>
-    res.json().then((json) => {
-      if (!res.ok) {
-        // res.ok 가 true면 정상 <-> 에러 응답
-        return Promise.reject(json);
+  return fetch(options.url, options)
+    .then((response) =>
+      response.json().then((json) => {
+        if (!response.ok) {
+          // response.ok가 true이면 정상적인 리스폰스를 받은것, 아니면 에러 리스폰스를 받은것.
+          return Promise.reject(json);
+        }
+        return json;
+      })
+    )
+    .catch((error) => {
+      // 추가된 부분
+      console.log(error.status);
+      if (error.status === 403) {
+        window.location.href = "/login"; // redirect
       }
-      return json;
-    })
-  );
+      return Promise.reject(error);
+    });
+}
+
+export function signin(userDTO) {
+  return call("/auth/signin", "POST", userDTO).then((response) => {
+    console.log("response : " + response);
+    alert("로그인 토큰 : " + response.token);
+    if (response.token) {
+      // token이 존재하는 경우 Todo 화면으로 리디렉트
+      window.location.href = "/";
+    }
+  });
 }
