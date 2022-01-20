@@ -3,11 +3,12 @@ import ReactDOM from "react-dom"; // 리액트 DOM 사용을 위해
 import "./index.css"; // css
 import App from "./App"; // App 컴포넌트 임포트
 import reportWebVitals from "./reportWebVitals";
+import AppRouter from "./AppRouter";
 
 ReactDOM.render(
   // ReactDOM이 내부 컴포넌트들을 'root' 엘리먼트에 render 함
   <React.StrictMode>
-    <App /> {/*  App Component 사용법 */}
+    <AppRouter /> {/*  App Component 사용법 */}
   </React.StrictMode>,
   document.getElementById("root")
 );
