@@ -8,6 +8,8 @@ import com.example.demo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +30,8 @@ public class UserController {
         this.userService = userService;
     }
 
-
+    // Bean으로 작성해도 됨.
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO) {
@@ -57,11 +60,18 @@ public class UserController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticate(@RequestBody UserDTO userDTO){
-        UserEntity user = userService.getByCredentials(userDTO.getEmail(), userDTO.getPassword());
+    public ResponseEntity<?> authenticate(@RequestBody UserDTO userDTO) {
+//        password 암호화 이전
+//        UserEntity user = userService.getByCredentials(userDTO.getEmail(), userDTO.getPassword());
 
-        System.out.println("");
-        if(user != null){
+        UserEntity user = userService.getByCredentials(
+                userDTO.getEmail(),
+                userDTO.getPassword(),
+                passwordEncoder
+        );
+
+        log.info("##### 로그인 #####");
+        if (user != null) {
             // 토큰 생성
             final String token = tokenProvider.create(user);
             log.info("### TOKEN ### " + token);
