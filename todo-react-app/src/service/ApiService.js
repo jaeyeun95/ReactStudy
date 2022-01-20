@@ -42,6 +42,7 @@ export function call(api, method, request) {
     });
 }
 
+// 로그인
 export function signin(userDTO) {
   return call("/auth/signin", "POST", userDTO).then((response) => {
     if (response.token) {
@@ -51,4 +52,10 @@ export function signin(userDTO) {
       window.location.href = "/";
     }
   });
+}
+
+// 로그아웃
+export function signout() {
+  localStorage.setItem(ACCESS_TOKEN, null);
+  window.location.href = "/login";
 }
